@@ -2,11 +2,10 @@ from fastapi import FastAPI
 import os
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(title="Test MCP Server")
 
-
-@app.post("/")
-async def root():
+@app.get("/mcp/tools")
+async def list_tools():
     return {
         "tools": [
             {
@@ -20,17 +19,22 @@ async def root():
         ]
     }
 
-
-@app.post("/ping")
+@app.post("/mcp/tools/ping")
 async def ping():
     return {
-        "content": [
-            {"type": "text", "text": "pong"}
-        ]
+        "type": "text",
+        "text": "pong"
     }
 
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
 
 if __name__ == "__main__":
-    # Use the PORT environment variable Render provides, fallback to 8000 locally
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("test123:app", host="0.0.0.0", port=port, reload=True)
+    uvicorn.run(
+        "test123:app",
+        host="0.0.0.0",
+        port=port,
+        reload=False
+    )

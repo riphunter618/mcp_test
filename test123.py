@@ -4,6 +4,17 @@ import uvicorn
 
 app = FastAPI(title="Test MCP Server")
 
+
+@app.get("/")
+async def root_get():
+    return {"status": "ok"}
+
+
+@app.post("/")
+async def root_post():
+    return {"status": "ok"}
+
+
 @app.get("/mcp/tools")
 async def list_tools():
     return {
@@ -38,3 +49,4 @@ if __name__ == "__main__":
         port=port,
         reload=False
     )
+

@@ -1,3 +1,6 @@
 fastmcp
 uvicorn
 requests
+pydantic
+typing
+httpx
